@@ -11,7 +11,13 @@ export async function GET(request: Request) {
   }
 
   try {
-    await sql`INSERT INTO tunnel (uuid, url) VALUES (${uuid}, ${url});`;
+    const result = await sql`SELECT url FROM tunnel WHERE uuid = ${uuid};`;
+    if (result.rows.length === 0) {
+      await sql`INSERT INTO tunnel (uuid, url) VALUES (${uuid}, ${url});`;
+    }
+    else {
+      await sql`UPDATE tunnel SET url = ${url} WHERE uuid = ${uuid};`;
+    }
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
