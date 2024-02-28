@@ -12,7 +12,7 @@ async function create_table() {
   }
 }
 
-async function create(formData: FormData) {
+async function create(formData) {
   'use server';
   const { rows } = await sql`
     INSERT INTO products (name)
