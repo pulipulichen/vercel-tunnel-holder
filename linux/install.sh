@@ -51,8 +51,8 @@ check_and_append_crontab() {
     fi
 }
 
-check_and_append_crontab "@reboot root $(dirname "$0")/startup.sh"
-check_and_append_crontab "0 3 * * * root $(dirname "$0")/random_sleep_startup.sh"
+check_and_append_crontab "@reboot root $(pwd)/startup.sh"
+check_and_append_crontab "0 3 * * * root $(pwd)/random_sleep_startup.sh"
 
 # =================================================================
 
