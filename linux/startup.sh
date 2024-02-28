@@ -4,7 +4,7 @@ cd "$(dirname "$0")"
 
 ./setup_url.sh
 
-url_data=$(cat url.txt | grep -o 'uuid=[^&]*' | awk -F'uuid=' '{print $2}')
+url_data=$(cat url.txt | grep -o 'u=[^&]*' | awk -F'u=' '{print $2}')
 
 export C=$url_data
 export URL=`cat target.txt`

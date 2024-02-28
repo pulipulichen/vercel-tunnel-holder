@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
  
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const uuid = searchParams.get('d');
+  const uuid = searchParams.get('u');
  
   if (!uuid) {
     return new NextResponse('false', { status: 200 });
