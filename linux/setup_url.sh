@@ -5,7 +5,8 @@ if [ ! -f "url.txt" ]; then
   url=`cat api.txt`
 
   # Fetch data from the URL using curl
-  result=$(curl -sL "$url/get-id")
+  # result=$(curl -sL "$url/get-id")
+  result=$(uuidgen)
 
   # Check if the result is not empty
   if [ -n "$result" ]; then
