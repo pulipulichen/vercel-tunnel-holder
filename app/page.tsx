@@ -1,18 +1,18 @@
 import { sql } from '@vercel/postgres';
 import { redirect } from 'next/navigation';
 import { NextResponse } from 'next/server';
-
-async function create_table() {
+ 
+export async function create_table() {
   try {
     const result =
-      await sql`CREATE TABLE products ( name varchar(255) );`;
+      await sql`CREATE TABLE Pets ( Name varchar(255), Owner varchar(255) );`;
     return NextResponse.json({ result }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
 }
 
-async function create(formData: File) {
+async function create(formData: FormData) {
   'use server';
   const { rows } = await sql`
     INSERT INTO products (name)
