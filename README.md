@@ -1,5 +1,12 @@
 wget https://pulipulichen.github.io/vercel-tunnel-holder/linux/install.sh; bash install.sh [TARGET_URL]
 
+# LXC
+
+- Storage 大小 1.5GB
+- RAM: 64MB
+
+----
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
