@@ -1,5 +1,7 @@
 wget https://pulipulichen.github.io/vercel-tunnel-holder/linux/install.sh; bash install.sh [TARGET_URL]
 
+----
+
 # LXC
 
 - Storage 大小 1.5GB

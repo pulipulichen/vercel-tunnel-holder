@@ -53,9 +53,9 @@ check_and_append_crontab() {
 
 check_and_append_crontab "@reboot root $(pwd)/startup.sh"
 
-if ! grep -q "random_sleep_startup.sh" /etc/crontab; then
-  check_and_append_crontab "0 3 * * * root $(pwd)/random_sleep_startup.sh"
-fi
+#if ! grep -q "random_sleep_startup.sh" /etc/crontab; then
+check_and_append_crontab "0 */3 * * * root $(pwd)/random_sleep_startup.sh"
+#fi
 
 # =================================================================
 

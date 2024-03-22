@@ -10,6 +10,24 @@ export C=$url_data
 export URL=`cat target.txt`
 export API=`cat api.txt`
 
+if [ -f "cloudflare-url.txt" ]; then
+    # Define the file containing the URL
+    url_file="cloudflare-url.txt"
+
+    # Read the URL from the file
+    url=$(cat "$url_file")
+
+    response=$(curl -s -o /dev/null -w "%{http_code}" "$url")
+
+    # Check if the response is 200
+    if [ "$response" = "200" ]; then
+        echo "URL $url is connectable (response 200)"
+        exit 0
+    else
+        echo "Error: URL $url is not connectable (response $response)"
+    fi
+fi
+
 pkill cloudflared
 
 rm /tmp/tunnel.log
@@ -33,6 +51,8 @@ while [ -z "$url" ]; do
     sleep 5
     url=$(extract_url)
 done
+
+echo "$url" > cloudflare-url.txt
 
 # curl -X POST "$API" -d "url=$url&p=$C"
 curl -sL "$API/set-url?url=$url&uuid=$C"
