@@ -42,14 +42,39 @@ extract_url() {
     echo "$url"
 }
 
+extract_url() {
+    local file_content=$(cat /tmp/tunnel.log)
+    local url=$(echo "$file_content" | grep -o 'http[s]\?://[^[:space:]]\+.trycloudflare.com' | grep -v '^http://localhost' | grep -v '^http://10')
+    echo "$url"
+}
+
 # Call the function
 url=$(extract_url)
+log_file="/tmp/tunnel.log"
 
 # Check if URL is empty
 while [ -z "$url" ]; do
     echo "URL is empty. Sleeping for 5 seconds..."
     sleep 5
     url=$(extract_url)
+
+    
+    if [ -z "$url" ];
+        # Use grep to search for the string
+        if grep -q "context deadline exceeded" "$log_file"; then
+            echo "The string 'context deadline exceeded' is found in $log_file"
+            
+            random_seconds=$(( ( RANDOM % 2960 ) + 1805 ))  # Generating random number between 5 and 300 (inclusive)
+
+            sleep $random_seconds
+
+            echo "Slept for $random_seconds seconds"
+
+            cd "$(dirname "$0")"
+            ./startup.sh &
+            exit 0
+        fi
+    fi
 done
 
 echo "$url" > cloudflare-url.txt
