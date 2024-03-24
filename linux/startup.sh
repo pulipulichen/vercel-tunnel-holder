@@ -19,12 +19,12 @@ if [ -f "cloudflare-url.txt" ]; then
 
     response=$(curl -s -o /dev/null -w "%{http_code}" "$url")
 
-    # Check if the response is 200
-    if [ "$response" = "200" ]; then
-        echo "URL $url is connectable (response 200)"
-        exit 0
-    else
+    # Check if the response is 503
+    if [ "$response" = "503" ]; then
         echo "Error: URL $url is not connectable (response $response)"
+    else
+        echo "URL $url is connectable (response $response)"
+        exit 0
     fi
 fi
 

@@ -8,6 +8,8 @@ fi
 
 rm *.sh
 
+# ============
+
 if [ -f "url.txt" ]; then
   mv url.txt url.tmp
 fi
@@ -16,7 +18,11 @@ if [ -f "cloudflare-url.txt" ]; then
   mv cloudflare-url.txt cloudflare-url.tmp
 fi
 
+# ============
+
 rm *.txt
+
+# ============
 
 if [ -f "url.tmp" ]; then
   mv url.tmp url.txt
@@ -25,6 +31,8 @@ fi
 if [ -f "cloudflare-url.tmp" ]; then
   mv cloudflare-url.tmp cloudflare-url.txt
 fi
+
+# ============
 
 cd "$(dirname "$0")"
 
