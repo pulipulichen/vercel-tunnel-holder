@@ -57,14 +57,13 @@ while [ -z "$url" ]; do
     echo "URL is empty. Sleeping for 5 seconds..."
     sleep 5
     url=$(extract_url)
-
     
     if [ -z "$url" ];
         # Use grep to search for the string
         if grep -q "context deadline exceeded" "$log_file"; then
             echo "The string 'context deadline exceeded' is found in $log_file"
             
-            random_seconds=$(( ( RANDOM % 2960 ) + 1805 ))  # Generating random number between 5 and 300 (inclusive)
+            random_seconds=$(( ( RANDOM % 2960 ) + 7205 ))  # Generating random number between 5 and 300 (inclusive)
 
             sleep $random_seconds
 
