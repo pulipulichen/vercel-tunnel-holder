@@ -58,7 +58,7 @@ while [ -z "$url" ]; do
     sleep 5
     url=$(extract_url)
     
-    if [ -z "$url" ];
+    if [ -z "$url" ]; then
         # Use grep to search for the string
         if grep -q "context deadline exceeded" "$log_file"; then
             echo "The string 'context deadline exceeded' is found in $log_file"
