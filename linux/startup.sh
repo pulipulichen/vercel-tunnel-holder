@@ -42,12 +42,6 @@ extract_url() {
     echo "$url"
 }
 
-extract_url() {
-    local file_content=$(cat /tmp/tunnel.log)
-    local url=$(echo "$file_content" | grep -o 'http[s]\?://[^[:space:]]\+.trycloudflare.com' | grep -v '^http://localhost' | grep -v '^http://10')
-    echo "$url"
-}
-
 # Call the function
 url=$(extract_url)
 log_file="/tmp/tunnel.log"
