@@ -7,7 +7,16 @@ if [ $# -eq 0 ]; then
 fi
 
 rm *.sh
+
+if [ -f "url.txt" ]; then
+  mv url.txt url.tmp
+fi
+
 rm *.txt
+
+if [ -f "url.tmp" ]; then
+  mv url.tmp url.txt
+fi
 
 cd "$(dirname "$0")"
 
