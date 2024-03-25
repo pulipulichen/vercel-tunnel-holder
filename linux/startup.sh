@@ -22,6 +22,8 @@ if [ -f "cloudflare-url.txt" ]; then
     # Check if the response is 503
     if [ "$response" = "530" ]; then
         echo "Error: URL $url is not connectable (response $response)"
+    elif [ "$response" = "000" ]; then
+        echo "Error: URL $url is not connectable (response $response)"
     else
         echo "URL $url is connectable (response $response)"
         exit 0
