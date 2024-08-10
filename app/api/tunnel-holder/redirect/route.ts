@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const uuid = searchParams.get('u');
-  const uri = searchParams.get('r');
+  let uri = searchParams.get('r');
  
   if (!uuid) {
     return new NextResponse('false', { status: 200 });
@@ -14,6 +14,9 @@ export async function GET(request: Request) {
   let url = result.rows[0].url
 
   if (uri) {
+    if (!uri.startsWith('/')) {
+      uri = '/' + uri
+    }
     url = url + uri
   }
   // return NextResponse.json({ pets }, { status: 200 });
