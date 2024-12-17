@@ -6,6 +6,7 @@ wget https://pulipulichen.github.io/vercel-tunnel-holder/linux/install.sh; bash 
 
 - Storage 大小 1.5GB
 - RAM: 64MB
+- ubuntu-22.04-standard_22.04-1_amd64.tar.zst
 
 ----
 
