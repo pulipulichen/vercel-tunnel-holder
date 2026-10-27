@@ -48,11 +48,25 @@ fi
 
 # =================================================================
 
-if ! command -v cloudflared &> /dev/null; then
-  wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
-  dpkg -i cloudflared-linux-amd64.deb
-  rm -rf cloudflared-linux-amd64.deb
+# Always refresh cloudflared: an existing binary may contain vulnerable certificates.
+# The Cloudflare advisory requires cloudflared >= 2026.10.2.
+# Download and install the current official amd64 package on every install run.
+cloudflared_deb=$(mktemp --suffix=.deb)
+trap 'rm -f "$cloudflared_deb"' EXIT
+if ! wget -q -O "$cloudflared_deb" https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb; then
+  echo "ERROR: Failed to download cloudflared update" >&2
+  exit 1
 fi
+if ! dpkg -i "$cloudflared_deb"; then
+  echo "ERROR: Failed to install cloudflared update" >&2
+  exit 1
+fi
+installed_version=$(cloudflared --version | grep -oE '[0-9]{4}\\.[0-9]+\\.[0-9]+' | head -n 1)
+if [ -z "$installed_version" ] || [ "$(printf '%s\\n' 2026.10.2 "$installed_version" | sort -V | head -n 1)" != "2026.10.2" ]; then
+  echo "ERROR: cloudflared $installed_version is older than required 2026.10.2" >&2
+  exit 1
+fi
+echo "cloudflared updated: $installed_version"
 
 # =================================================================
 
